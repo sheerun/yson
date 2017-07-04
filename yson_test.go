@@ -30,6 +30,10 @@ func ExampleEachKey() {
 	// Output: foo fiz 1
 }
 
+func TestNilEachKey(t *testing.T) {
+	yson.EachKey(nil, func(key []byte) {})
+}
+
 func BenchmarkEachKey(b *testing.B) {
 	json := jsonWithThousandKeys()
 
@@ -53,6 +57,10 @@ func ExampleEachValue() {
 	// Output: bar fuz 2
 }
 
+func TestNilEachValue(t *testing.T) {
+	yson.EachValue(nil, func(value []byte) {})
+}
+
 func BenchmarkEachValue(b *testing.B) {
 	json := jsonWithThousandKeys()
 
@@ -74,6 +82,10 @@ func ExampleEachPair() {
 		fmt.Printf("%s:%s ", key, value)
 	})
 	// Output: foo:bar fiz:fuz 1:2
+}
+
+func TestNilEachPair(t *testing.T) {
+	yson.EachPair(nil, func(key []byte, value []byte) {})
 }
 
 func BenchmarkEachPair(b *testing.B) {
