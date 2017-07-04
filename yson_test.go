@@ -19,9 +19,9 @@ func jsonWithThousandKeys() []byte {
 
 func ExampleEachKey() {
 	json := []byte(`{
-		"foo": "bar",
-		"fiz": "fuz",
-		"1": "2"
+	  "foo": "bar",
+	  "fiz": "fuz",
+	  "1": "2"
 	}`)
 
 	yson.EachKey(json, func(key []byte) {
@@ -42,9 +42,9 @@ func BenchmarkEachKey(b *testing.B) {
 
 func ExampleEachValue() {
 	json := []byte(`{
-		"foo": "bar",
-		"fiz": "fuz",
-		"1": "2"
+	  "foo": "bar",
+	  "fiz": "fuz",
+	  "1": "2"
 	}`)
 
 	yson.EachValue(json, func(key []byte) {
@@ -65,9 +65,9 @@ func BenchmarkEachValue(b *testing.B) {
 
 func ExampleEachPair() {
 	json := []byte(`{
-		"foo": "bar",
-		"fiz": "fuz",
-		"1": "2"
+	  "foo": "bar",
+	  "fiz": "fuz",
+	  "1": "2"
 	}`)
 
 	yson.EachPair(json, func(key []byte, value []byte) {
