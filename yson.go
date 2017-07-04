@@ -35,19 +35,3 @@ func EachPair(json []byte, fn func(key []byte, value []byte)) {
 		return nil
 	})
 }
-
-// Returns an iterator over keys and values of json. Returns empty map if json is not an object.
-//
-// Warning: The order is not preserved while iterating on result.
-//
-// Memory usage: O(1), Time usage: O(n)
-func KeysAndValues(json []byte) map[string][]byte {
-	result := map[string][]byte{}
-
-	jsonparser.ObjectEach(json, func(key []byte, value []byte, t jsonparser.ValueType, offset int) error {
-		result[string(key)] = value
-		return nil
-	})
-
-	return result
-}
