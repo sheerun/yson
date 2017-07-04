@@ -33,3 +33,18 @@ func EachValue(json []byte, fn func(value []byte)) {
 		fn(value)
 	})
 }
+
+// Gets single element from json.
+//
+// Warning: the behavior for fetching items by numeric key is for now undefined.
+//
+// Memory usage: O(1), Time usage: O(n)
+func Get(json []byte, keys ...string) []byte {
+	value, _, _, err := jsonparser.Get(json, keys...)
+
+	if err != nil {
+		return nil
+	}
+
+	return value
+}

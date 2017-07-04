@@ -97,3 +97,37 @@ func BenchmarkEachPair(b *testing.B) {
 		})
 	}
 }
+
+func ExampleGet() {
+	json := []byte(`{
+	  "foo": "bar",
+	  "fiz": "fuz"
+	}`)
+
+	fmt.Printf("%s", yson.Get(json, "foo"))
+	// Output: bar
+}
+
+func TestNilGet(t *testing.T) {
+	yson.Get(nil, "foo")
+}
+
+func TestNilGetNotExistent(t *testing.T) {
+	if yson.Get([]byte(`{}`), "foo") != nil {
+		t.Error("Yson should return nil for unknown key")
+	}
+}
+
+func TestNilGetInvalid(t *testing.T) {
+	if yson.Get([]byte(`{afgs`), "foo") != nil {
+		t.Error("Yson should return nil when json is invalid")
+	}
+}
+
+func BenchmarkGet(b *testing.B) {
+	json := jsonWithThousandKeys()
+
+	for n := 0; n < b.N; n++ {
+		yson.Get(json, "key-final")
+	}
+}
