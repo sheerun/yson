@@ -44,7 +44,7 @@ json := byte[](`{
   "John": { "age": 12 }
 }`)
 
-if age := yson.Get(json, "Adam", "age")); age != nil {
+if age := yson.Get(json, "Adam", "age"); age != nil {
   fmt.Printf("%s", age)
 }
 // Output: 9
