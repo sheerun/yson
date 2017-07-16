@@ -2,6 +2,93 @@
 
 Zero-allocation, human-friendly JSON library for Go :cake:
 
+## Usage
+
+Here's more advanced example:
+
+```go
+import "github.com/sheerun/yson"
+
+json := byte[](`{
+  "humans": {
+    "Adam": {
+      "happy": true,
+      "age": 9
+    },
+    "John": {
+      "happy": false,
+      "age": 12
+    }
+  }
+}`)
+
+yson.EachValue(yson.Get(json, "humans"), func(value []byte) {
+  fmt.Printf("%s ", yson.Get(value, "age"))
+})
+
+// Output: 9 12
+```
+
+
+## API
+
+### yson.Get
+
+```go
+json := byte[](`{
+  "Adam": 9,
+  "John": 12
+}`)
+
+fmt.Printf("%s ", yson.Get(json, "Adam"))
+// Output: 9
+```
+
+### yson.EachKey
+
+```go
+json := byte[](`{
+  "Adam": 9,
+  "John": 12
+}`)
+
+yson.EachKey(json, func(key []byte) {
+  fmt.Printf("%s ", string(key))
+})
+
+// Output: Adam John
+```
+
+### yson.EachValue
+
+```go
+json := byte[](`{
+  "Adam": 9,
+  "John": 12
+}`)
+
+yson.EachValue(json, func(value []byte) {
+  fmt.Printf("%s ", value)
+})
+
+// Output: 9 12
+```
+
+### yson.EachPair
+
+```go
+json := byte[](`{
+  "Adam": 9,
+  "John": 12
+}`)
+
+yson.EachPair(json, func(key []byte, value []byte) {
+  fmt.Printf("%s=%s ", key, value)
+})
+
+// Output: Adam=9 John=12
+```
+
 ## License
 
 MIT
