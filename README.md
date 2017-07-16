@@ -32,25 +32,28 @@ yson.EachValue(yson.Get(json, "humans"), func(value []byte) {
 
 ## API
 
+Yson functions accept JSON is raw `byte[]` form. Most of them don't allocate memory but just return slices of it.
+
 ### yson.Get
+
+> yson.Get(json byte[], keys ...string) []byte
+
+Gets a value from JSON object. Can accept multiple keys. Returns `nil` if any key doesn't exist.
 
 ```go
 json := byte[](`{
-  "Adam": 9,
-  "John": 12
+  "Adam": { "age": 9 },
+  "John": { "age": 12 }
 }`)
 
-fmt.Printf("%s ", yson.Get(json, "Adam"))
+fmt.Printf("%s ", yson.Get(json, "Adam", "age"))
 // Output: 9
 ```
 
 ### yson.EachKey
 
 ```go
-json := byte[](`{
-  "Adam": 9,
-  "John": 12
-}`)
+json := byte[](`{ "Adam": 9, "John": 12 }`)
 
 yson.EachKey(json, func(key []byte) {
   fmt.Printf("%s ", string(key))
@@ -62,10 +65,7 @@ yson.EachKey(json, func(key []byte) {
 ### yson.EachValue
 
 ```go
-json := byte[](`{
-  "Adam": 9,
-  "John": 12
-}`)
+json := byte[](`{ "Adam": 9, "John": 12 }`)
 
 yson.EachValue(json, func(value []byte) {
   fmt.Printf("%s ", value)
@@ -77,10 +77,7 @@ yson.EachValue(json, func(value []byte) {
 ### yson.EachPair
 
 ```go
-json := byte[](`{
-  "Adam": 9,
-  "John": 12
-}`)
+json := byte[](`{ "Adam": 9, "John": 12 }`)
 
 yson.EachPair(json, func(key []byte, value []byte) {
   fmt.Printf("%s=%s ", key, value)
