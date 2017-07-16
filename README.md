@@ -2,6 +2,8 @@
 
 Zero-allocation, human-friendly JSON library for Go :cake:
 
+Status: experimental (API is not stable yet)
+
 ## Usage
 
 Here's more advanced example:
