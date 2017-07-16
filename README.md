@@ -44,7 +44,9 @@ json := byte[](`{
   "John": { "age": 12 }
 }`)
 
-fmt.Printf("%s ", yson.Get(json, "Adam", "age"))
+if age := yson.Get(json, "Adam", "age")); age != nil {
+  fmt.Printf("%s", age)
+}
 // Output: 9
 ```
 
@@ -56,7 +58,7 @@ Iterates over JSON keys. Does nothing on any incorrect input (including `nil`).
 json := byte[](`{ "Adam": 9, "John": 12 }`)
 
 yson.EachKey(json, func(key []byte) {
-  fmt.Printf("%s ", string(key))
+  fmt.Printf("%s ", key)
 })
 
 // Output: Adam John
