@@ -34,7 +34,7 @@ yson.EachValue(yson.Get(json, "humans"), func(value []byte) {
 
 Yson functions accept JSON is raw `byte[]` form. Most of them don't allocate memory but just return slices of it.
 
-### Get
+### yson.Get
 
 Gets a value from JSON object. Can accept multiple keys. Returns `nil` on any incorrect input.
 
@@ -48,7 +48,7 @@ fmt.Printf("%s ", yson.Get(json, "Adam", "age"))
 // Output: 9
 ```
 
-### EachKey
+### yson.EachKey
 
 Iterates over JSON keys. Does nothing on any incorrect input (including `nil`).
 
@@ -62,7 +62,7 @@ yson.EachKey(json, func(key []byte) {
 // Output: Adam John
 ```
 
-### EachValue
+### yson.EachValue
 
 Iterates over JSON values. Does nothing on any incorrect input (including `nil`).
 
@@ -76,7 +76,7 @@ yson.EachValue(json, func(value []byte) {
 // Output: 9 12
 ```
 
-### EachPair
+### yson.EachPair
 
 Iterates over JSON keys and values. Does nothing on any incorrect input (including `nil`).
 
