@@ -1,6 +1,8 @@
 package yson
 
 import (
+	j "encoding/json"
+
 	"github.com/buger/jsonparser"
 )
 
@@ -47,4 +49,11 @@ func Get(json []byte, keys ...string) []byte {
 	}
 
 	return value
+}
+
+// Parses json to go-lang structure or value
+//
+// Memory usage: O(1), Time usage: O(1)
+func Load(json []byte, value interface{}) (err error) {
+	return j.Unmarshal(json, value)
 }

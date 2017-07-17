@@ -109,7 +109,9 @@ func ExampleGet() {
 }
 
 func TestNilGet(t *testing.T) {
-	yson.Get(nil, "foo")
+	if yson.Get(nil, "foo") != nil {
+		t.Error("Get should work for nil Json")
+	}
 }
 
 func TestNilGetNotExistent(t *testing.T) {
@@ -129,5 +131,68 @@ func BenchmarkGet(b *testing.B) {
 
 	for n := 0; n < b.N; n++ {
 		yson.Get(json, "key-final")
+	}
+}
+
+func ExampleLoad() {
+	json := []byte(`{ "foo": 12 }`)
+
+	var i int = 0
+	err := yson.Load(yson.Get(json, "foo"), &i)
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("%d", i+1)
+	// Output: 13
+}
+
+func ExampleLoad2() {
+	ages := map[string]int{}
+	json := []byte(`{ "Adam": 9, "John": 12 }`)
+
+	err := yson.Load(json, &ages)
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("%d %d", ages["Adam"], ages["John"])
+	// Output: 9 12
+}
+
+func TestNilLoad(t *testing.T) {
+	var i int
+	if err := yson.Load(nil, &i); err == nil {
+		t.Error("Load should return error for nil")
+	}
+}
+
+func TestLoadObjectToInt(t *testing.T) {
+	var i int
+	if err := yson.Load([]byte(`{}`), &i); err == nil {
+		t.Error("Load should return an error for invalid type (object)")
+	}
+}
+
+func TestLoadStringToInt(t *testing.T) {
+	var i int
+	if err := yson.Load([]byte(`"dfas"`), &i); err == nil {
+		t.Error("Load should return an error for invalid type (string)")
+	}
+}
+
+func TestLoadString(t *testing.T) {
+	var s string
+	if yson.Load([]byte(`"dfas"`), s); s == "dfas" {
+		t.Error("Load load string type")
+	}
+}
+
+func TestLoadInvalid(t *testing.T) {
+	var i int
+	if err := yson.Load([]byte(`{dfas"`), &i); err == nil {
+		t.Error("Load should return an error for invalid json")
 	}
 }

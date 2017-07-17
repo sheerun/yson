@@ -94,6 +94,19 @@ yson.EachPair(json, func(key []byte, value []byte) {
 // Output: Adam=9 John=12
 ```
 
+### yson.Load
+
+Parses JSON value to go-lang structure or value.
+
+```go
+var ages map[string]int
+json := byte[](`{ "Adam": 9, "John": 12 }`)
+
+yson.Load(json, ages)
+fmt.Printf("%s %s", ages["Adam"], ages["John"])
+// Output: 9 12
+```
+
 ## License
 
 MIT
