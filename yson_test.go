@@ -126,6 +126,18 @@ func TestNilGetInvalid(t *testing.T) {
 	}
 }
 
+func TestExampleGet(t *testing.T) {
+	if string(yson.Get([]byte(`{"fiz":"fuz","foo":{"bar":"baz"}}`), "foo", "bar")) != "baz" {
+		t.Error("Yson should allow to fetch nested keys")
+	}
+}
+
+func TestBuggyJsonparser(t *testing.T) {
+	if yson.Get([]byte(`{"fiz":"fuz","foo":{"bar":"baz"}}`), "fiz", "bar") != nil {
+		t.Error("Yson should not have bug of jsonparser")
+	}
+}
+
 func BenchmarkGet(b *testing.B) {
 	json := jsonWithThousandKeys()
 

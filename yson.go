@@ -42,13 +42,17 @@ func EachValue(json []byte, fn func(value []byte)) {
 //
 // Memory usage: O(1), Time usage: O(n)
 func Get(json []byte, keys ...string) []byte {
-	value, _, _, err := jsonparser.Get(json, keys...)
+	var err error
 
-	if err != nil {
-		return nil
+	for _, key := range keys {
+		json, _, _, err = jsonparser.Get(json, key)
+
+		if err != nil {
+			return nil
+		}
 	}
 
-	return value
+	return json
 }
 
 // Parses json to go-lang structure or value
